@@ -1,0 +1,55 @@
+package docs:calculator@0.1.0;
+
+interface calculate {
+    enum op {
+        add,
+        sub,
+        mul,
+        div,
+    }
+    eval-expression: func(op: op, x: u32, y: u32) -> u32;
+}
+
+interface add {
+    add: func(a: u32, b: u32) -> u32;
+}
+
+interface sub {
+    sub: func(a: u32, b: u32) -> u32;
+}
+
+interface mul {
+    mul: func(a: u32, b: u32) -> u32;
+}
+
+interface div {
+    div: func(a: u32, b: u32) -> u32;
+}
+
+world adder {
+    export add;
+}
+
+world subtractor {
+    export sub;
+}
+
+world multiplier {
+    export mul;
+}
+
+world divisor {
+    export div;
+}
+
+world calculator {
+    export calculate;
+    import add;
+    import sub;
+    import mul;
+    import div;
+}
+
+world app {
+    import calculate;
+}
