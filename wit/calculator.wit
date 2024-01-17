@@ -6,6 +6,7 @@ interface calculate {
         sub,
         mul,
         div,
+        exp,
     }
     eval-expression: func(op: op, x: u32, y: u32) -> u32;
 }
@@ -26,6 +27,10 @@ interface div {
     div: func(a: u32, b: u32) -> u32;
 }
 
+interface exp {
+    exp: func(a: u32, b: u32) -> u32;
+}
+
 world adder {
     export add;
 }
@@ -42,12 +47,17 @@ world divisor {
     export div;
 }
 
+world exponential {
+    export exp;
+}
+
 world calculator {
     export calculate;
     import add;
     import sub;
     import mul;
     import div;
+    import exp;
 }
 
 world app {

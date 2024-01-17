@@ -42,8 +42,25 @@ To compose a calculator component with an add operator, run the following:
 (cd multiplier && cargo component build --release)
 (cd divisor && cargo component build --release)
 (cd command && cargo component build --release)
+```
 
-wasm-tools compose calculator/target/wasm32-wasi/release/calculator.wasm -d adder/target/wasm32-wasi/release/adder.wasm -d subtractor/target/wasm32-wasi/release/subtractor.wasm -d multiplier/target/wasm32-wasi/release/multiplier.wasm -d divisor/target/wasm32-wasi/release/divisor.wasm -o composed.wasm
+```sh
+cd exp
+wit-bindgen c --autodrop-borrows yes --world exponential  ../wit/calculator.wit
+```
+
+For the C component
+
+```sh
+/opt/wasi-sdk/bin/clang exp.c exponential.c exponential_component_type.o -o exponential-core.wasm -mexec-model=reactor
+wasm-tools component new ./exponential-core.wasm -o exponential-component.wasm
+wasm-tools component wit exponential-component.wasm
+```
+
+Create the composed and the command
+
+```sh
+wasm-tools compose calculator/target/wasm32-wasi/release/calculator.wasm -d adder/target/wasm32-wasi/release/adder.wasm -d subtractor/target/wasm32-wasi/release/subtractor.wasm -d multiplier/target/wasm32-wasi/release/multiplier.wasm -d divisor/target/wasm32-wasi/release/divisor.wasm -d exp/exponential-component.wasm -o composed.wasm
 
 wasm-tools compose command/target/wasm32-wasi/release/command.wasm -d composed.wasm -o command.wasm
 ```
@@ -54,7 +71,13 @@ Now, run the component with wasmtime:
 wasmtime run --wasm component-model command.wasm 1 2 add
 1 + 2 = 3
 wasmtime run --wasm component-model command.wasm 6 2 sub
+6 - 2 = 4
 wasmtime run --wasm component-model command.wasm 6 2 add
+6 + 2 = 8
 wasmtime run --wasm component-model command.wasm 6 2 mul
+6 * 2 = 12
 wasmtime run --wasm component-model command.wasm 6 2 div
+6 / 2 = 3
+wasmtime run --wasm component-model command.wasm 6 2 exp
+6 ^ 2 = 36
 ```
