@@ -2,15 +2,16 @@
 #ifndef __BINDINGS_EXPONENTIAL_H
 #define __BINDINGS_EXPONENTIAL_H
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 
-// Exported Functions from `docs:calculator/exp@0.1.0`
-uint32_t exports_docs_calculator_exp_exp(uint32_t a, uint32_t b);
+    // Exported Functions from `docs:calculator/exp@0.1.0`
+    uint32_t exports_docs_calculator_exp_exp(uint32_t a, uint32_t b);
 
 #ifdef __cplusplus
 }
