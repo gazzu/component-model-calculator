@@ -1,4 +1,4 @@
-cargo_component_bindings::generate!();
+mod bindings;
 
 use bindings::exports::docs::calculator::calculate::{Guest, Op};
 
@@ -22,3 +22,5 @@ impl Guest for Component {
         }
     }
 }
+
+bindings::export!(Component with_types_in bindings);
