@@ -31,6 +31,12 @@ world calculator {
 
 To expand the exercise to add more components, add another operator world, expand the enum, and modify the `command` component to call it.
 
+## Prerequisites
+
+- `cargo` 1.77
+- [`wasm-tools`](https://github.com/bytecodealliance/wasm-tools) 1.206.0
+- `wasmtime` 20.0.0 (if running with wasmtime)
+
 ## Building and running the example
 
 To compose a calculator component with an add operator, run the following:
@@ -65,7 +71,9 @@ wasm-tools compose calculator/target/wasm32-wasi/release/calculator.wasm -d adde
 wasm-tools compose command/target/wasm32-wasi/release/command.wasm -d composed.wasm -o command.wasm
 ```
 
-Now, run the component with wasmtime:
+## Running with wasmtime
+
+You must have wasmtime 20.0.0 for this to work. Make sure to follow the build step above first.
 
 ```sh
 wasmtime run --wasm component-model command.wasm 1 2 add
