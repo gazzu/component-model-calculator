@@ -8,6 +8,7 @@ use bindings::docs::calculator::sub::sub;
 use bindings::docs::calculator::mul::mul;
 use bindings::docs::calculator::div::div;
 use bindings::docs::calculator::exp::exp;
+use bindings::docs::calculator::square::square;
 
 struct Component;
 
@@ -19,6 +20,7 @@ impl Guest for Component {
             Op::Mul => mul(x, y),
             Op::Div => div(x, y),
             Op::Exp => exp(x, y),
+            Op::Square => square(x),
         }
     }
 }

@@ -31,6 +31,10 @@ interface exp {
     exp: func(a: u32, b: u32) -> u32;
 }
 
+interface square {
+    square: func(a: u32) -> u32;
+}
+
 world adder {
     export add;
 }
@@ -49,6 +53,10 @@ world divisor {
 
 world exponential {
     export exp;
+}
+
+world squarer {
+    export square;
 }
 
 world calculator {

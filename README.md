@@ -47,6 +47,7 @@ To compose a calculator component with an add operator, run the following:
 (cd subtractor && cargo component build --release)
 (cd multiplier && cargo component build --release)
 (cd divisor && cargo component build --release)
+(cd square && cargo component build --release)
 (cd command && cargo component build --release)
 ```
 
@@ -66,7 +67,7 @@ wasm-tools component wit exponential-component.wasm
 Create the composed and the command
 
 ```sh
-wasm-tools compose calculator/target/wasm32-wasi/release/calculator.wasm -d adder/target/wasm32-wasi/release/adder.wasm -d subtractor/target/wasm32-wasi/release/subtractor.wasm -d multiplier/target/wasm32-wasi/release/multiplier.wasm -d divisor/target/wasm32-wasi/release/divisor.wasm -d exp/exponential-component.wasm -o composed.wasm
+wasm-tools compose calculator/target/wasm32-wasi/release/calculator.wasm -d adder/target/wasm32-wasi/release/adder.wasm -d subtractor/target/wasm32-wasi/release/subtractor.wasm -d multiplier/target/wasm32-wasi/release/multiplier.wasm -d divisor/target/wasm32-wasi/release/divisor.wasm -d exp/exponential-component.wasm -d square/target/wasm32-wasi/release/square.wasm -o composed.wasm
 
 wasm-tools compose command/target/wasm32-wasi/release/command.wasm -d composed.wasm -o command.wasm
 ```
@@ -88,4 +89,6 @@ wasmtime run --wasm component-model command.wasm 6 2 div
 6 / 2 = 3
 wasmtime run --wasm component-model command.wasm 6 2 exp
 6 ^ 2 = 36
+wasmtime run --wasm component-model command.wasm 6 2 square
+6 ² = 36
 ```
