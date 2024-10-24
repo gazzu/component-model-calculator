@@ -115,7 +115,7 @@ pub mod docs {
         }
 
         #[allow(clippy::all)]
-        pub mod exp {
+        pub mod square {
             #[used]
             #[doc(hidden)]
             #[cfg(target_arch = "wasm32")]
@@ -123,20 +123,20 @@ pub mod docs {
                 super::super::super::__link_custom_section_describing_imports;
             use super::super::super::_rt;
             #[allow(unused_unsafe, clippy::all)]
-            pub fn exp(a: u32, b: u32) -> u32 {
+            pub fn square(a: u32) -> u32 {
                 unsafe {
                     #[cfg(target_arch = "wasm32")]
-                    #[link(wasm_import_module = "docs:calculator/exp@0.1.0")]
+                    #[link(wasm_import_module = "docs:calculator/square@0.1.0")]
                     extern "C" {
-                        #[link_name = "exp"]
-                        fn wit_import(_: i32, _: i32) -> i32;
+                        #[link_name = "square"]
+                        fn wit_import(_: i32) -> i32;
                     }
 
                     #[cfg(not(target_arch = "wasm32"))]
-                    fn wit_import(_: i32, _: i32) -> i32 {
+                    fn wit_import(_: i32) -> i32 {
                         unreachable!()
                     }
-                    let ret = wit_import(_rt::as_i32(&a), _rt::as_i32(&b));
+                    let ret = wit_import(_rt::as_i32(&a));
                     ret as u32
                 }
             }
@@ -161,7 +161,8 @@ pub mod exports {
                     Sub,
                     Mul,
                     Div,
-                    Exp,
+                    // Exp,
+                    Square,
                 }
                 impl ::core::fmt::Debug for Op {
                     fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
@@ -170,7 +171,8 @@ pub mod exports {
                             Op::Sub => f.debug_tuple("Op::Sub").finish(),
                             Op::Mul => f.debug_tuple("Op::Mul").finish(),
                             Op::Div => f.debug_tuple("Op::Div").finish(),
-                            Op::Exp => f.debug_tuple("Op::Exp").finish(),
+                            // Op::Exp => f.debug_tuple("Op::Exp").finish(),
+                            Op::Square => f.debug_tuple("Op::Square").finish(),
                         }
                     }
                 }
@@ -186,7 +188,8 @@ pub mod exports {
                             1 => Op::Sub,
                             2 => Op::Mul,
                             3 => Op::Div,
-                            4 => Op::Exp,
+                            // 4 => Op::Exp,
+                            5 => Op::Square,
 
                             _ => panic!("invalid enum discriminant"),
                         }
@@ -328,19 +331,19 @@ pub(crate) use __export_calculator_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.21.0:calculator:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 537] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x98\x03\x01A\x02\x01\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 547] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xa2\x03\x01A\x02\x01\
 A\x0c\x01B\x02\x01@\x02\x01ay\x01by\0y\x04\0\x03add\x01\0\x03\x01\x19docs:calcul\
 ator/add@0.1.0\x05\0\x01B\x02\x01@\x02\x01ay\x01by\0y\x04\0\x03sub\x01\0\x03\x01\
 \x19docs:calculator/sub@0.1.0\x05\x01\x01B\x02\x01@\x02\x01ay\x01by\0y\x04\0\x03\
 mul\x01\0\x03\x01\x19docs:calculator/mul@0.1.0\x05\x02\x01B\x02\x01@\x02\x01ay\x01\
 by\0y\x04\0\x03div\x01\0\x03\x01\x19docs:calculator/div@0.1.0\x05\x03\x01B\x02\x01\
-@\x02\x01ay\x01by\0y\x04\0\x03exp\x01\0\x03\x01\x19docs:calculator/exp@0.1.0\x05\
-\x04\x01B\x04\x01m\x05\x03add\x03sub\x03mul\x03div\x03exp\x04\0\x02op\x03\0\0\x01\
-@\x03\x02op\x01\x01xy\x01yy\0y\x04\0\x0feval-expression\x01\x02\x04\x01\x1fdocs:\
-calculator/calculate@0.1.0\x05\x05\x04\x01\x20docs:calculator/calculator@0.1.0\x04\
-\0\x0b\x10\x01\0\x0acalculator\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0d\
-wit-component\x070.201.0\x10wit-bindgen-rust\x060.21.0";
+@\x01\x01ay\0y\x04\0\x06square\x01\0\x03\x01\x1cdocs:calculator/square@0.1.0\x05\
+\x04\x01B\x04\x01m\x06\x03add\x03sub\x03mul\x03div\x03exp\x06square\x04\0\x02op\x03\
+\0\0\x01@\x03\x02op\x01\x01xy\x01yy\0y\x04\0\x0feval-expression\x01\x02\x04\x01\x1f\
+docs:calculator/calculate@0.1.0\x05\x05\x04\x01\x20docs:calculator/calculator@0.\
+1.0\x04\0\x0b\x10\x01\0\x0acalculator\x03\0\0\0G\x09producers\x01\x0cprocessed-b\
+y\x02\x0dwit-component\x070.201.0\x10wit-bindgen-rust\x060.21.0";
 
 #[inline(never)]
 #[doc(hidden)]

@@ -11,7 +11,7 @@ fn parse_operator(op: &str) -> anyhow::Result<Op> {
         "sub" => Ok(Op::Sub),
         "mul" => Ok(Op::Mul),
         "div" => Ok(Op::Div),
-        "exp" => Ok(Op::Exp),
+        // "exp" => Ok(Op::Exp),
         "square" => Ok(Op::Square),
         _ => anyhow::bail!("Unknown operation: {}", op),
     }
@@ -24,7 +24,7 @@ impl fmt::Display for Op {
             Op::Sub => write!(f, "-"),
             Op::Mul => write!(f, "*"),
             Op::Div => write!(f, "/"),
-            Op::Exp => write!(f, "^"),
+            // Op::Exp => write!(f, "^"),
             Op::Square => write!(f, "²"),
         }
     }

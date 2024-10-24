@@ -33,9 +33,10 @@ To expand the exercise to add more components, add another operator world, expan
 
 ## Prerequisites
 
-- `cargo` 1.77
-- [`wasm-tools`](https://github.com/bytecodealliance/wasm-tools) 1.206.0
-- `wasmtime` 20.0.0 (if running with wasmtime)
+- [`rust and cargo`](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+- [`wasm-tools`](https://github.com/bytecodealliance/wasm-tools)
+- [`wac`](https://github.com/bytecodealliance/wac)
+- [`wasmtime`](https://wasmtime.dev/)
 
 ## Building and running the example
 
@@ -47,7 +48,7 @@ To compose a calculator component with an add operator, run the following:
 (cd subtractor && cargo component build --release)
 (cd multiplier && cargo component build --release)
 (cd divisor && cargo component build --release)
-(cd square && cargo component build --release)
+(cd squarer && cargo component build --release)
 (cd command && cargo component build --release)
 ```
 
@@ -67,14 +68,16 @@ wasm-tools component wit exponential-component.wasm
 Create the composed and the command
 
 ```sh
-wasm-tools compose calculator/target/wasm32-wasi/release/calculator.wasm -d adder/target/wasm32-wasi/release/adder.wasm -d subtractor/target/wasm32-wasi/release/subtractor.wasm -d multiplier/target/wasm32-wasi/release/multiplier.wasm -d divisor/target/wasm32-wasi/release/divisor.wasm -d exp/exponential-component.wasm -d square/target/wasm32-wasi/release/square.wasm -o composed.wasm
+wac plug calculator/target/wasm32-wasi/release/calculator.wasm --plug adder/target/wasm32-wasi/release/adder.wasm --plug subtractor/target/wasm32-wasi/release/subtractor.wasm --plug multiplier/target/wasm32-wasi/release/multiplier.wasm --plug divisor/target/wasm32-wasi/release/divisor.wasm --plug squarer/target/wasm32-wasi/release/squarer.wasm -o composed.wasm
+```
 
-wasm-tools compose command/target/wasm32-wasi/release/command.wasm -d composed.wasm -o command.wasm
+```sh
+wac plug command/target/wasm32-wasi/release/command.wasm --plug composed.wasm -o command.wasm
 ```
 
 ## Running with wasmtime
 
-You must have wasmtime 20.0.0 for this to work. Make sure to follow the build step above first.
+You must have wasmtime for this to work. Make sure to follow the build step above first.
 
 ```sh
 wasmtime run --wasm component-model command.wasm 1 2 add

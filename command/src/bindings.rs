@@ -17,7 +17,8 @@ pub mod docs {
                 Sub,
                 Mul,
                 Div,
-                Exp,
+                // Exp,
+                Square,
             }
             impl ::core::fmt::Debug for Op {
                 fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
@@ -26,7 +27,8 @@ pub mod docs {
                         Op::Sub => f.debug_tuple("Op::Sub").finish(),
                         Op::Mul => f.debug_tuple("Op::Mul").finish(),
                         Op::Div => f.debug_tuple("Op::Div").finish(),
-                        Op::Exp => f.debug_tuple("Op::Exp").finish(),
+                        // Op::Exp => f.debug_tuple("Op::Exp").finish(),
+                        Op::Square => f.debug_tuple("Op::Square").finish(),
                     }
                 }
             }
@@ -42,7 +44,8 @@ pub mod docs {
                         1 => Op::Sub,
                         2 => Op::Mul,
                         3 => Op::Div,
-                        4 => Op::Exp,
+                        // 4 => Op::Exp,
+                        5 => Op::Square,
 
                         _ => panic!("invalid enum discriminant"),
                     }
@@ -146,13 +149,13 @@ mod _rt {
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.21.0:app:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 263] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x8d\x01\x01A\x02\x01\
-A\x02\x01B\x04\x01m\x05\x03add\x03sub\x03mul\x03div\x03exp\x04\0\x02op\x03\0\0\x01\
-@\x03\x02op\x01\x01xy\x01yy\0y\x04\0\x0feval-expression\x01\x02\x03\x01\x1fdocs:\
-calculator/calculate@0.1.0\x05\0\x04\x01\x19docs:calculator/app@0.1.0\x04\0\x0b\x09\
-\x01\0\x03app\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x07\
-0.201.0\x10wit-bindgen-rust\x060.21.0";
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 270] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x94\x01\x01A\x02\x01\
+A\x02\x01B\x04\x01m\x06\x03add\x03sub\x03mul\x03div\x03exp\x06square\x04\0\x02op\
+\x03\0\0\x01@\x03\x02op\x01\x01xy\x01yy\0y\x04\0\x0feval-expression\x01\x02\x03\x01\
+\x1fdocs:calculator/calculate@0.1.0\x05\0\x04\x01\x19docs:calculator/app@0.1.0\x04\
+\0\x0b\x09\x01\0\x03app\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-c\
+omponent\x070.201.0\x10wit-bindgen-rust\x060.21.0";
 
 #[inline(never)]
 #[doc(hidden)]
